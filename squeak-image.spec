@@ -4,7 +4,7 @@
 Summary:       Squeak Image
 Name:          squeak-image
 Version:       3.9
-Release:       %mkrel 1
+Release:       %mkrel 3
 License:       Free with restrictions (http://www.squeak.org/download/license.html)
 Group:         Development/Other
 Source0:       ftp://st.cs.uiuc.edu/Smalltalk/Squeak/%version/platform-independent/Squeak%version-%origin-%major.zip
