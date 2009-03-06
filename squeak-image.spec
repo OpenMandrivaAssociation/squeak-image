@@ -1,35 +1,58 @@
-%define major 7067
-%define origin final
+%define image_major 3.10
+%define image_ver %{image_major}.2
+%define image_rel 7179
 
-Summary:       Squeak Image
-Name:          squeak-image
-Version:       3.9
-Release:       %mkrel 4
-License:       Free with restrictions (http://www.squeak.org/download/license.html)
-Group:         Development/Other
-Source0:       ftp://st.cs.uiuc.edu/Smalltalk/Squeak/%version/platform-independent/Squeak%version-%origin-%major.zip
-URL:           http://www.squeak.org
-BuildRequires: unzip
-Requires:      squeak-vm >= 3.0
-Requires:      squeak-sources >= 3
+Name:           squeak-image
+Version:        %{image_ver}.%{image_rel}
+Release:        %mkrel 1
+Summary:        The image files for Squeak
+
+Group:          Development/Other
+License:        MIT
+URL:            http://www.squeak.org
+Source0:        http://ftp.squeak.org/%{image_major}/Squeak%{image_ver}-%{image_rel}-basic.zip
+Source1:        http://ftp.squeak.org/sources_files/SqueakV39.sources.gz
+Source2:        squeak-image-doc.html
 BuildRoot:      %{_tmppath}/%{name}-buildroot
 
+Requires:       squeak-vm >= 3.7
+
+BuildArch:      noarch
+
+
 %description
-These are the image and change files needed for the Squeak Virtual Machiene.
+This is the standard Squeak image as distributed by sqeak.org.
+The Squeak image is split into three interdependent parts,
+the .image file, the .changes file, and the .sources file.
+
+%prep
+%setup -q -c %{name}-%{version}
+cp -p %SOURCE2 .
 
 %build
-mkdir -p %{buildroot}/extract/
-unzip %{SOURCE0} -d %{buildroot}/extract/
 
 %install
-mkdir -p %{buildroot}%{_libdir}/squeak/
-mv %{buildroot}/extract/Squeak%version-%origin-%major/Squeak*.changes %{buildroot}%{_libdir}/squeak/Squeak%version-%major.changes; gzip -9 %{buildroot}%{_libdir}/squeak/Squeak%version-%major.changes
-cp %{buildroot}/extract/Squeak%version-%origin-%major/Squeak*.image %{buildroot}%{_libdir}/squeak/Squeak%version-%major.image; gzip -9 %{buildroot}%{_libdir}/squeak/Squeak%version-%major.image
-rm -rf %{buildroot}/extract/
+rm -rf %{buildroot}
+mkdir -p %{buildroot}%{_datadir}/squeak
+cp Squeak%{image_ver}-%{image_rel}-basic.image %{buildroot}%{_datadir}/squeak
+cp Squeak%{image_ver}-%{image_rel}-basic.changes %{buildroot}%{_datadir}/squeak
+zcat %{SOURCE1} >%{buildroot}%{_datadir}/squeak/SqueakV39.sources
+cd %{buildroot}%{_datadir}/squeak
+gzip Squeak%{image_ver}-%{image_rel}-basic.image
+gzip Squeak%{image_ver}-%{image_rel}-basic.changes
+ln -sf Squeak%{image_ver}-%{image_rel}-basic.image.gz squeak.image.gz
+ln -sf Squeak%{image_ver}-%{image_rel}-basic.changes.gz squeak.changes.gz
+
+# inisqueak is looking for SqueakV3.sources (not V39), create this for it
+cd %{buildroot}%{_datadir}/squeak/
+ln -s SqueakV39.sources SqueakV3.sources
+
 
 %clean
 rm -rf %{buildroot}
 
+
 %files
-%defattr(0644,root,root,0755)
-%{_libdir}/squeak/*
+%defattr(-,root,root,-)
+%doc squeak-image-doc.html
+%{_datadir}/squeak/*
