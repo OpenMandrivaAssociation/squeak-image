@@ -4,7 +4,7 @@
 
 Name:           squeak-image
 Version:        %{image_ver}.%{image_rel}
-Release:        %mkrel 1
+Release:        %mkrel 2
 Summary:        The image files for Squeak
 
 Group:          Development/Other
