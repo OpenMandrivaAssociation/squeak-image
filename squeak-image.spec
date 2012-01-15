@@ -1,6 +1,6 @@
 Name:		squeak-image
 Version:	4.1
-Release:	%mkrel 3
+Release:	%mkrel 4
 Summary:	The image files for Squeak
 
 Group:		Development/Other
@@ -20,7 +20,7 @@ BuildArch:	noarch
 
 #-----------------------------------------------------------------------
 %description
-This is the standard Squeak image as distributed by sqeak.org.
+This is the standard Squeak image as distributed by squeak.org.
 The Squeak image is split into three interdependent parts,
 the .image file, the .changes file, and the .sources file.
 
