@@ -1,6 +1,6 @@
 Name:		squeak-image
 Version:	4.1
-Release:	%mkrel 4
+Release:	%mkrel 5
 Summary:	The image files for Squeak
 
 Group:		Development/Other
