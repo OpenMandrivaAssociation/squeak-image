@@ -5,7 +5,7 @@ Summary:	The image files for Squeak
 
 Group:		Development/Other
 License:	MIT
-URL:		http://www.squeak.org
+URL:		https://www.squeak.org
 Source0:	http://ftp.squeak.org/%{version}/Squeak%{version}.zip
 Source1:	http://ftp.squeak.org/sources_files/SqueakV41.sources.gz
 Source2:	http://ftp.squeak.org/4.1/LICENSE
